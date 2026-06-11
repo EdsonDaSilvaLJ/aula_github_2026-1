@@ -1,6 +1,11 @@
 import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Main {
+	private static final List<Cliente> clientes = new ArrayList<>();
+	private static final Scanner scanner = new Scanner(System.in);
 
 	public static void main(String[] args) {
 		Menu mainMenu = new Menu("Menu Principal", Arrays.asList("Conta", "Cliente", "Operacoes"), true);
@@ -29,14 +34,42 @@ public class Main {
 			op = clienteMenu.getSelection();
 			switch (op) {
 				case 1:
-					System.out.println("Cadastrar cliente selecionado");
+					cadastrarCliente();
 					break;
 				case 2:
-					System.out.println("Listar clientes selecionado");
+					listarClientes();
 					break;
 				case 3:
 					break;
 			}
+		}
+	}
+
+	private static void cadastrarCliente() {
+		System.out.println("Informe o nome do cliente: ");
+		String nome = scanner.nextLine();
+
+		System.out.println("Informe o CPF do cliente: ");
+		String cpf = scanner.nextLine();
+
+		if (nome.trim().isEmpty() || cpf.trim().isEmpty()) {
+			System.out.println("Nome e CPF sao obrigatorios.");
+			return;
+		}
+
+		clientes.add(new Cliente(nome, cpf));
+		System.out.println("Cliente cadastrado com sucesso!");
+	}
+
+	private static void listarClientes() {
+		if (clientes.isEmpty()) {
+			System.out.println("Nenhum cliente cadastrado.");
+			return;
+		}
+
+		System.out.println("Clientes cadastrados:");
+		for (int i = 0; i < clientes.size(); i++) {
+			System.out.println((i + 1) + " - " + clientes.get(i));
 		}
 	}
 
