@@ -9,10 +9,10 @@ public class Main {
 			selection = mainMenu.getSelection();
 			switch (selection) {
 				case 1:
-					exibirMenuConta();
+					System.out.println("Conta selecionada");
 					break;
 				case 2:
-					System.out.println("Cliente selecionado");
+					exibirMenuCliente();
 					break;
 				case 3:
 					System.out.println("Operacoes selecionada");
@@ -22,17 +22,17 @@ public class Main {
 		System.out.println("Fim");
 	}
 
-	private static void exibirMenuConta() {
-		Menu contaMenu = new Menu("Menu Conta", Arrays.asList("Criar conta", "Consultar saldo", "Voltar"));
+	private static void exibirMenuCliente() {
+		Menu clienteMenu = new Menu("Menu Cliente", Arrays.asList("Cadastrar cliente", "Listar clientes", "Voltar"));
 		int op = -1;
 		while (op != 3) {
-			op = contaMenu.getSelection();
+			op = clienteMenu.getSelection();
 			switch (op) {
 				case 1:
-					System.out.println("Criar conta selecionado");
+					System.out.println("Cadastrar cliente selecionado");
 					break;
 				case 2:
-					System.out.println("Consultar saldo selecionado");
+					System.out.println("Listar clientes selecionado");
 					break;
 				case 3:
 					break;
