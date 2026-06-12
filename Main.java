@@ -28,7 +28,7 @@ public class Main {
 	}
 
 	private static void exibirMenuCliente() {
-		Menu clienteMenu = new Menu("Menu Cliente", Arrays.asList("Cadastrar cliente", "Listar clientes", "Voltar"));
+		Menu clienteMenu = new Menu("Menu Cliente", Arrays.asList("Cadastrar cliente", "Consultar clientes cadastrados", "Voltar"));
 		int op = -1;
 		while (op != 3) {
 			op = clienteMenu.getSelection();
@@ -37,7 +37,7 @@ public class Main {
 					cadastrarCliente();
 					break;
 				case 2:
-					listarClientes();
+					consultarClientes();
 					break;
 				case 3:
 					break;
@@ -59,9 +59,10 @@ public class Main {
 
 		clientes.add(new Cliente(nome, cpf));
 		System.out.println("Cliente cadastrado com sucesso!");
+		consultarClientes();
 	}
 
-	private static void listarClientes() {
+	private static void consultarClientes() {
 		if (clientes.isEmpty()) {
 			System.out.println("Nenhum cliente cadastrado.");
 			return;
