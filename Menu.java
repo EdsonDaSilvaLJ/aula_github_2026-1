@@ -1,7 +1,4 @@
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Menu {
 	private String title;
@@ -39,8 +36,7 @@ public class Menu {
 			}
 
 			System.out.println("Informe a opcao desejada. ");
-			Scanner s = new Scanner(System.in);
-			String str = s.nextLine();
+			String str = Input.readLine();
 			try {
 				op = Integer.parseInt(str);
 			}
