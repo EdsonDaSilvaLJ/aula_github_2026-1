@@ -1,9 +1,10 @@
 import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
+	private static final List<Cliente> clientes = new ArrayList<>();
 	private static double saldo = 0.0;
-	private static String clienteNome = "";
-	private static String clienteCpf = "";
 
 	public static void main(String[] args) {
 		Menu mainMenu = new Menu("Menu Principal", Arrays.asList("Conta", "Cliente", "Operacoes"), true);
@@ -26,7 +27,7 @@ public class Main {
 	}
 
 	private static void exibirMenuCliente() {
-		Menu clienteMenu = new Menu("Menu Cliente", Arrays.asList("Cadastrar cliente", "Listar clientes", "Voltar"));
+		Menu clienteMenu = new Menu("Menu Cliente", Arrays.asList("Cadastrar cliente", "Consultar clientes cadastrados", "Voltar"));
 		int op = -1;
 		while (op != 3) {
 			op = clienteMenu.getSelection();
@@ -35,7 +36,7 @@ public class Main {
 					cadastrarCliente();
 					break;
 				case 2:
-					System.out.println("Listar clientes selecionado");
+					consultarClientes();
 					break;
 				case 3:
 					break;
@@ -64,17 +65,30 @@ public class Main {
 	private static void cadastrarCliente() {
 		System.out.println("Informe o nome do cliente: ");
 		String nome = Input.readLine();
+
 		System.out.println("Informe o CPF do cliente: ");
 		String cpf = Input.readLine();
 
 		if (nome.trim().isEmpty() || cpf.trim().isEmpty()) {
-			System.out.println("Dados invalidos para cadastro de cliente.");
+			System.out.println("Nome e CPF sao obrigatorios.");
 			return;
 		}
 
-		clienteNome = nome;
-		clienteCpf = cpf;
-		System.out.println("Cliente " + clienteNome + " cadastrado com sucesso.");
+		clientes.add(new Cliente(nome, cpf));
+		System.out.println("Cliente cadastrado com sucesso!");
+		consultarClientes();
+	}
+
+	private static void consultarClientes() {
+		if (clientes.isEmpty()) {
+			System.out.println("Nenhum cliente cadastrado.");
+			return;
+		}
+
+		System.out.println("Clientes cadastrados:");
+		for (int i = 0; i < clientes.size(); i++) {
+			System.out.println((i + 1) + " - " + clientes.get(i));
+		}
 	}
 
 	private static void criarConta() {
