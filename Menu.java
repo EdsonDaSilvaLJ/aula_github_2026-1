@@ -1,7 +1,4 @@
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Menu {
 	private String title;
@@ -27,8 +24,9 @@ public class Menu {
 	}
 
 	public int getSelection() {
-		int op = 0;
-		while (op==0){
+		int op = -1;
+		boolean opcaoValida = false;
+		while (!opcaoValida){
 			System.out.println(title+"\n");
 			if (hasExitOption) {
 				System.out.println("0 - Sair");
@@ -39,17 +37,16 @@ public class Menu {
 			}
 
 			System.out.println("Informe a opcao desejada. ");
-			Scanner s = new Scanner(System.in);
-			String str = s.nextLine();
+			String str = Input.readLine();
 			try {
 				op = Integer.parseInt(str);
 			}
 			catch (NumberFormatException e) {
-				op =0;
+				op = -1;
 			}
-			if ((hasExitOption && op < 0) || (!hasExitOption && op < 1) || op >= i){
+			opcaoValida = (hasExitOption && op >= 0 && op < i) || (!hasExitOption && op >= 1 && op < i);
+			if (!opcaoValida){
 				System.out.println("Opcao errada!");
-				op=0;
 			}
 
 		}
