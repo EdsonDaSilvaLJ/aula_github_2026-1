@@ -2,6 +2,8 @@ import java.util.Arrays;
 
 public class Main {
 	private static double saldo = 0.0;
+	private static String clienteNome = "";
+	private static String clienteCpf = "";
 
 	public static void main(String[] args) {
 		Menu mainMenu = new Menu("Menu Principal", Arrays.asList("Conta", "Cliente", "Operacoes"), true);
@@ -10,7 +12,7 @@ public class Main {
 			selection = mainMenu.getSelection();
 			switch (selection) {
 				case 1:
-					System.out.println("Conta selecionada");
+					exibirMenuConta();
 					break;
 				case 2:
 					exibirMenuCliente();
@@ -30,7 +32,7 @@ public class Main {
 			op = clienteMenu.getSelection();
 			switch (op) {
 				case 1:
-					System.out.println("Cadastrar cliente selecionado");
+					cadastrarCliente();
 					break;
 				case 2:
 					System.out.println("Listar clientes selecionado");
@@ -39,6 +41,45 @@ public class Main {
 					break;
 			}
 		}
+	}
+
+	private static void exibirMenuConta() {
+		Menu contaMenu = new Menu("Menu Conta", Arrays.asList("Criar conta", "Consultar saldo", "Voltar"));
+		int op = -1;
+		while (op != 3) {
+			op = contaMenu.getSelection();
+			switch (op) {
+				case 1:
+					criarConta();
+					break;
+				case 2:
+					exibirSaldo();
+					break;
+				case 3:
+					break;
+			}
+		}
+	}
+
+	private static void cadastrarCliente() {
+		System.out.println("Informe o nome do cliente: ");
+		String nome = Input.readLine();
+		System.out.println("Informe o CPF do cliente: ");
+		String cpf = Input.readLine();
+
+		if (nome.trim().isEmpty() || cpf.trim().isEmpty()) {
+			System.out.println("Dados invalidos para cadastro de cliente.");
+			return;
+		}
+
+		clienteNome = nome;
+		clienteCpf = cpf;
+		System.out.println("Cliente " + clienteNome + " cadastrado com sucesso.");
+	}
+
+	private static void criarConta() {
+		saldo = 0.0;
+		System.out.printf("Conta criada com sucesso. Saldo inicial: R$ %.2f%n", saldo);
 	}
 
 	private static void exibirMenuOperacoes() {
@@ -67,6 +108,7 @@ public class Main {
 		}
 
 		saldo += valor;
+		System.out.println("Deposito concluido com sucesso.");
 		exibirSaldo();
 	}
 
@@ -82,6 +124,7 @@ public class Main {
 		}
 
 		saldo -= valor;
+		System.out.println("Saque concluido com sucesso.");
 		exibirSaldo();
 	}
 
